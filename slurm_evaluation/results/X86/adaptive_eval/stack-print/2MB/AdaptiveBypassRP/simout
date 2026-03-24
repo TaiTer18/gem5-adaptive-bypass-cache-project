@@ -1,0 +1,39 @@
+Global frequency set at 1000000000000 ticks per second
+Redirecting stdout to /data/home/nta52/gem5-baseline/slurm_evaluation/results/X86/adaptive_eval/stack-print/2MB/AdaptiveBypassRP/simout
+Redirecting stderr to /data/home/nta52/gem5-baseline/slurm_evaluation/results/X86/adaptive_eval/stack-print/2MB/AdaptiveBypassRP/simerr
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 20.1.0.2
+gem5 compiled Mar 18 2026 08:16:53
+gem5 started Mar 18 2026 09:41:25
+gem5 executing on ARCH-750, pid 1494184
+command line: /data/home/nta52/gem5-baseline/build/X86/gem5.opt -re --outdir=/data/home/nta52/gem5-baseline/slurm_evaluation/results/X86/adaptive_eval/stack-print/2MB/AdaptiveBypassRP /data/home/nta52/gem5-baseline/configs/evaluation/run_benchmark.py --l2_size 2MB --l2_rp AdaptiveBypassRP /data/home/nta52/gem5-baseline/tests/test-progs/stack-print/bin/x86/linux/stack-print
+
+info: Standard input is not a terminal, disabling listeners.
+Beginning simulation with L2=2MB, RP=AdaptiveBypassRP
+0x7fffffffecbc: argc: [1]
+
+0x7fffffffedd8: argv[0]: [/data/home/nta52/gem5-baseline/tests/test-progs/stack-print/bin/x86/linux/stack-print]
+
+
+0x7fffffffedf0: AT_SYSINFO_EHDR: [ffffffffff600000]
+0x7fffffffee00: AT_HWCAP: [78bfbff]
+0x7fffffffee10: AT_PAGESZ: [1000]
+0x7fffffffee20: AT_CLKTCK: [64]
+0x7fffffffee30: AT_PHDR: [400040]
+0x7fffffffee40: AT_PHENT: [38]
+0x7fffffffee50: AT_PHNUM: [9]
+0x7fffffffee60: AT_BASE: [7ffff7fff000]
+0x7fffffffee70: AT_FLAGS: [0]
+0x7fffffffee80: AT_ENTRY: [400480]
+0x7fffffffee90: AT_UID: [64]
+0x7fffffffeea0: AT_EUID: [64]
+0x7fffffffeeb0: AT_GID: [64]
+0x7fffffffeec0: AT_EGID: [64]
+0x7fffffffeed0: AT_SECURE: [0]
+0x7fffffffeee0: AT_RANDOM: [7fffffffef29]
+0x7fffffffeef0: AT_EXECFN: [7fffffffedd8]
+0x7fffffffef00: AT_PLATFORM: [7fffffffef39]
+
+Exiting @ tick 1041541000 because exiting with last active thread context

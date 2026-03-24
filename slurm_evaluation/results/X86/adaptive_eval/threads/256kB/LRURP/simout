@@ -1,0 +1,18 @@
+Global frequency set at 1000000000000 ticks per second
+Redirecting stdout to /data/home/nta52/gem5-baseline/slurm_evaluation/results/X86/adaptive_eval/threads/256kB/LRURP/simout
+Redirecting stderr to /data/home/nta52/gem5-baseline/slurm_evaluation/results/X86/adaptive_eval/threads/256kB/LRURP/simerr
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 20.1.0.2
+gem5 compiled Mar 18 2026 08:16:53
+gem5 started Mar 18 2026 09:41:40
+gem5 executing on ARCH-750, pid 1494258
+command line: /data/home/nta52/gem5-baseline/build/X86/gem5.opt -re --outdir=/data/home/nta52/gem5-baseline/slurm_evaluation/results/X86/adaptive_eval/threads/256kB/LRURP /data/home/nta52/gem5-baseline/configs/evaluation/run_benchmark.py --l2_size 256kB --l2_rp LRURP /data/home/nta52/gem5-baseline/tests/test-progs/threads/bin/x86/linux/threads
+
+info: Standard input is not a terminal, disabling listeners.
+Beginning simulation with L2=256kB, RP=LRURP
+Running on 1 cores. with 100 values
+Waiting for other threads to complete
+Validating...Success!
+Exiting @ tick 9267763000 because exiting with last active thread context
