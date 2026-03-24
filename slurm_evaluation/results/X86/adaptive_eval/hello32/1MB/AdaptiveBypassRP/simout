@@ -1,16 +1,16 @@
 Global frequency set at 1000000000000 ticks per second
-Redirecting stdout to /data/home/nta52/gem5-baseline/slurm_evaluation/results/X86/adaptive_eval/hello32/1MB/AdaptiveBypassRP/simout
-Redirecting stderr to /data/home/nta52/gem5-baseline/slurm_evaluation/results/X86/adaptive_eval/hello32/1MB/AdaptiveBypassRP/simerr
+Redirecting stdout to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/adaptive_eval/hello32/1MB/AdaptiveBypassRP/simout
+Redirecting stderr to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/adaptive_eval/hello32/1MB/AdaptiveBypassRP/simerr
 gem5 Simulator System.  http://gem5.org
 gem5 is copyrighted software; use the --copyright option for details.
 
 gem5 version 20.1.0.2
 gem5 compiled Mar 18 2026 08:16:53
-gem5 started Mar 18 2026 09:41:35
-gem5 executing on ARCH-750, pid 1494244
-command line: /data/home/nta52/gem5-baseline/build/X86/gem5.opt -re --outdir=/data/home/nta52/gem5-baseline/slurm_evaluation/results/X86/adaptive_eval/hello32/1MB/AdaptiveBypassRP /data/home/nta52/gem5-baseline/configs/evaluation/run_benchmark.py --l2_size 1MB --l2_rp AdaptiveBypassRP /data/home/nta52/gem5-baseline/tests/test-progs/hello/bin/x86/linux/hello32
+gem5 started Mar 24 2026 04:12:20
+gem5 executing on ARCH-750, pid 3142876
+command line: /data/home/nta52/gem5-adaptive-bypass-cache-project/build/X86/gem5.opt -re --outdir=/data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/adaptive_eval/hello32/1MB/AdaptiveBypassRP /data/home/nta52/gem5-adaptive-bypass-cache-project/configs/evaluation/run_benchmark.py --l2_size 1MB --l2_rp AdaptiveBypassRP /data/home/nta52/gem5-adaptive-bypass-cache-project/tests/test-progs/hello/bin/x86/linux/hello32
 
 info: Standard input is not a terminal, disabling listeners.
 Beginning simulation with L2=1MB, RP=AdaptiveBypassRP
 Hello world!
-Exiting @ tick 52748000 because exiting with last active thread context
+Exit @ tick 53186000 because exiting with last active thread context

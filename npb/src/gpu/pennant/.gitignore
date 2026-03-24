@@ -1,7 +1,0 @@
-build/**
-*.case
-*.geo
-*.xy
-*.ze
-*.zp
-*.zr

@@ -236,12 +236,14 @@
                     "name": "workload",
                     "path": "system.cpu.workload",
                     "cmd": [
-                        "/data/home/nta52/gem5-baseline/tests/test-progs/threads/bin/x86/linux/threads"
+                        "/data/home/nta52/gem5-adaptive-bypass-cache-project/tests/test-progs/threads/bin/x86/linux/threads"
                     ],
-                    "cwd": "/data/home/nta52/gem5-baseline/slurm_evaluation",
+                    "cwd": "/data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation",
                     "drivers": [],
                     "egid": 100,
-                    "env": [],
+                    "env": [
+                        "OMP_NUM_THREADS=1"
+                    ],
                     "errout": "cerr",
                     "euid": 100,
                     "eventq_index": 0,

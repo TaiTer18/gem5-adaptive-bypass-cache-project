@@ -101,6 +101,13 @@ def config_cache(options, system):
                                    size=options.l2_size,
                                    assoc=options.l2_assoc)
 
+        if options.l2_rp == "AdaptiveBypassRP":
+            system.l2.replacement_policy = AdaptiveBypassRP(
+                initial_bypass_probability=options.l2_initial_bypass_probability
+            )
+        else:
+            system.l2.replacement_policy = LRURP()
+
         system.tol2bus = L2XBar(clk_domain = system.cpu_clk_domain)
         system.l2.cpu_side = system.tol2bus.master
         system.l2.mem_side = system.membus.slave
