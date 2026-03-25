@@ -12,7 +12,8 @@ Because we have modified the internal C++ logic of gem5 (specifically `adaptive_
 We provide a dedicated SLURM job script to build the simulator quickly using 8 cores:
 ```bash
 # From the root of the project repository:
-sbatch slurm_evaluation/build.sh
+cd slurm_evaluation
+sbatch build.sh
 ```
 ---
 
