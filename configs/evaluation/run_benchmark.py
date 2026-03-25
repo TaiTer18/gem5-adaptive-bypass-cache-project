@@ -47,9 +47,10 @@ class L2Cache(Cache):
     mshrs = 20
     tgts_per_mshr = 12
 
-    def __init__(self, size=None, rp='LRURP', initial_bypass_probability=50):
+    def __init__(self, size=None, assoc=8, rp='LRURP', initial_bypass_probability=50):
         super(L2Cache, self).__init__()
         if size: self.size = size
+        self.assoc = assoc
         
         if rp == 'AdaptiveBypassRP':
             self.replacement_policy = AdaptiveBypassRP(
@@ -64,6 +65,7 @@ class L2Cache(Cache):
         self.mem_side = bus.slave
 
 SimpleOpts.add_option('--l2_size', default='256kB', help="L2 cache size")
+SimpleOpts.add_option('--l2_assoc', default=8, type="int", help="L2 cache set associativity")
 SimpleOpts.add_option('--l2_rp', default='LRURP', choices=['LRURP', 'AdaptiveBypassRP'], help="Replacement Policy")
 SimpleOpts.add_option('--l2_initial_bypass_probability', default=50, type='int', help="Initial bypass probability (0-100) for AdaptiveBypassRP")
 SimpleOpts.add_option('--binary_args', default='', help="Quoted argument string passed to the benchmark binary")
@@ -103,6 +105,7 @@ system.cpu.dcache.connectBus(system.l2bus)
 
 system.l2cache = L2Cache(
     size=opts.l2_size,
+    assoc=opts.l2_assoc,
     rp=opts.l2_rp,
     initial_bypass_probability=opts.l2_initial_bypass_probability,
 )
@@ -143,7 +146,7 @@ system.cpu.createThreads()
 root = Root(full_system = False, system = system)
 m5.instantiate()
 
-print(f"Beginning simulation with L2={opts.l2_size}, RP={opts.l2_rp}")
+print(f"Beginning simulation with L2={opts.l2_size} ({opts.l2_assoc}-way), RP={opts.l2_rp} (InitProb={opts.l2_initial_bypass_probability})")
 
 in_roi = False
 while True:

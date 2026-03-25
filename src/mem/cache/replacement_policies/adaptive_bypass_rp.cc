@@ -29,7 +29,12 @@ AdaptiveBypassRP::AdaptiveBypassStats::AdaptiveBypassStats(
 }
 
 void AdaptiveBypassRP::increaseBypassProb() const {
-    currentBypassProbability += (currentBypassProbability / 2);
+
+    if (currentBypassProbability == 0) {
+        currentBypassProbability = 5; // Prevent getting stuck at 0 forever
+    } else {
+        currentBypassProbability += (currentBypassProbability / 2);
+    }
     if (currentBypassProbability > 100) {
         currentBypassProbability = 100;
     }
@@ -46,6 +51,10 @@ bool AdaptiveBypassRP::shouldBypass() const {
 }
 
 bool AdaptiveBypassRP::shouldVirtualBypass() const {
+
+    // Never virutal bypass if bypass proability is >= 20%
+    if (currentBypassProbability >= 20) return false;
+
     unsigned rand_num = random_mt.random<unsigned>(0, 100);
     return rand_num < virtualBypassProbability;
 }
