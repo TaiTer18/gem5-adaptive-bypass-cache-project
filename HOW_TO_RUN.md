@@ -23,12 +23,14 @@ Our evaluation specifically relies on statically compiled, single-threaded (SER)
    ```bash
    cd NPB3.3.1/NPB3.3-SER/
    ```
-2. Compile the "Class S" size (which takes ~10-20 minutes to simulate in gem5) for all four benchmarks:
+2. Compile the "Class S" size for all four benchmarks:
    ```bash
    make is CLASS=S
    make cg CLASS=S
    make mg CLASS=S
    make bt CLASS=S
+   make lu CLASS=S
+   make ft CLASS=S
    ```
 3. The aggressively optimized static binaries will be placed in `NPB3.3.1/NPB3.3-SER/bin/`. Return to the project root:
    ```bash
@@ -61,6 +63,12 @@ sbatch run_mg_eval.sh
 
 # Run the Block Tridiagonal evaluation
 sbatch run_bt_eval.sh
+
+# Run the Fourier Transform evaluation
+sbatch run_ft_eval.sh
+
+# Run the Lower-Upper Gauss-Seidel evaluation
+sbatch run_lu_eval.sh
 ```
 
 ### Where are results saved?
