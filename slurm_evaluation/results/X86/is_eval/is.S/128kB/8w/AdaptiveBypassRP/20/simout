@@ -1,0 +1,49 @@
+Global frequency set at 1000000000000 ticks per second
+Redirecting stdout to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/is_eval/is.S/128kB/8w/AdaptiveBypassRP/20/simout
+Redirecting stderr to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/is_eval/is.S/128kB/8w/AdaptiveBypassRP/20/simerr
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 20.1.0.2
+gem5 compiled Mar 25 2026 23:23:37
+gem5 started Mar 25 2026 23:32:29
+gem5 executing on ARCH-750, pid 3463170
+command line: /data/home/nta52/gem5-adaptive-bypass-cache-project/build/X86/gem5.opt -re --outdir=/data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/is_eval/is.S/128kB/8w/AdaptiveBypassRP/20 /data/home/nta52/gem5-adaptive-bypass-cache-project/configs/evaluation/run_benchmark.py --l2_size 128kB --l2_assoc 8 --l2_initial_bypass_probability 20 --l2_rp AdaptiveBypassRP /data/home/nta52/gem5-adaptive-bypass-cache-project/NPB3.3.1/NPB3.3-SER/bin/is.S.x
+
+info: Standard input is not a terminal, disabling listeners.
+Beginning simulation with L2=128kB (8-way), RP=AdaptiveBypassRP (InitProb=20)
+
+
+ NAS Parallel Benchmarks (NPB3.3-SER) - IS Benchmark
+
+ Size:  65536  (class S)
+ Iterations:   10
+
+
+ IS Benchmark Completed
+ Class           =                        S
+ Size            =                    65536
+ Iterations      =                       10
+ Time in seconds =                     0.07
+ Mop/s total     =                     9.18
+ Operation type  =              keys ranked
+ Verification    =               SUCCESSFUL
+ Version         =                    3.3.1
+ Compile date    =              24 Mar 2026
+
+ Compile options:
+    CC           = gcc
+    CLINK        = gcc
+    C_LIB        = (none)
+    C_INC        = (none)
+    CFLAGS       = -O3 -static
+    CLINKFLAGS   = -O3 -static
+
+
+ Please send all errors/feedbacks to:
+
+ NPB Development Team
+ npb@nas.nasa.gov
+
+
+Exit @ tick 129737118000 because exiting with last active thread context
