@@ -1,0 +1,36 @@
+Global frequency set at 1000000000000 ticks per second
+Redirecting stdout to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/cg_eval/cg.S/256kB/8w/AdaptiveBypassRP/20/simout
+Redirecting stderr to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/cg_eval/cg.S/256kB/8w/AdaptiveBypassRP/20/simerr
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 20.1.0.2
+gem5 compiled Mar 25 2026 23:23:37
+gem5 started Mar 26 2026 01:11:28
+gem5 executing on ARCH-750, pid 3479583
+command line: /data/home/nta52/gem5-adaptive-bypass-cache-project/build/X86/gem5.opt -re --outdir=/data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/cg_eval/cg.S/256kB/8w/AdaptiveBypassRP/20 /data/home/nta52/gem5-adaptive-bypass-cache-project/configs/evaluation/run_benchmark.py --l2_size 256kB --l2_assoc 8 --l2_initial_bypass_probability 20 --l2_rp AdaptiveBypassRP /data/home/nta52/gem5-adaptive-bypass-cache-project/NPB3.3.1/NPB3.3-SER/bin/cg.S.x
+
+info: Standard input is not a terminal, disabling listeners.
+Beginning simulation with L2=256kB (8-way), RP=AdaptiveBypassRP (InitProb=20)
+
+
+ NAS Parallel Benchmarks (NPB3.3-SER) - CG Benchmark
+
+ Size:        1400
+ Iterations:    15
+
+ Initialization time =           0.261 seconds
+
+   iteration           ||r||                 zeta
+        1       0.13559314291612E-12     9.9986441579140
+        2       0.20968022875811E-14     8.5733279203222
+        3       0.21220139530704E-14     8.5954510374058
+        4       0.19264995437250E-14     8.5969972340737
+        5       0.19149867265115E-14     8.5971549151767
+        6       0.20265347150196E-14     8.5971744311608
+        7       0.18896504735573E-14     8.5971770704913
+        8       0.19757833551762E-14     8.5971774440630
+        9       0.20444345740590E-14     8.5971774983942
+       10       0.18659924049472E-14     8.5971775064409
+       11       0.18246767922945E-14     8.5971775076486
+       12       0.19752103401870E-14     8.5971775078318
