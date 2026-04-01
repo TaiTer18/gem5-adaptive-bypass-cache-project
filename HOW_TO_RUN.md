@@ -18,13 +18,13 @@ sbatch build.sh
 ---
 
 ## 2. Compiling the NPB Benchmarks
-Our evaluation specifically relies on statically compiled, single-threaded (SER) execution to produce accurate cache behavior. The benchmarks we evaluate are **IS** (Integer Sort), **CG** (Conjugate Gradient), **MG** (Multi-Grid), and **BT** (Block Tridiagonal).
+Our evaluation specifically relies on statically compiled, single-threaded (SER) execution to produce accurate cache behavior. The benchmarks we evaluate are **IS** (Integer Sort), **CG** (Conjugate Gradient), **MG** (Multi-Grid), **BT** (Block Tridiagonal) **FT** (Fourier Transform), and **LU** (ower-Upper Gauss-Seidel).
 
 1. Navigate to the NPB source directory:
    ```bash
    cd NPB3.3.1/NPB3.3-SER/
    ```
-2. Compile the "Class S" size for all four benchmarks:
+2. Compile the "Class S" size for all six benchmarks:
    ```bash
    make is CLASS=S
    make cg CLASS=S
@@ -33,7 +33,7 @@ Our evaluation specifically relies on statically compiled, single-threaded (SER)
    make lu CLASS=S
    make ft CLASS=S
    ```
-3. The aggressively optimized static binaries will be placed in `NPB3.3.1/NPB3.3-SER/bin/`. Return to the project root:
+3. The optimized static binaries will be placed in `NPB3.3.1/NPB3.3-SER/bin/`. Return to the project root:
    ```bash
    cd ../../
    ```
@@ -66,7 +66,10 @@ sbatch run_mg_eval.sh
 sbatch run_bt_eval.sh
 
 # Run the Fourier Transform evaluation
-sbatch run_ft_eval.sh
+# Split into two due to long runtime
+sbatch run_ft_eval_1.sh
+
+sbatch run_ft_eval_2.sh
 
 # Run the Lower-Upper Gauss-Seidel evaluation
 sbatch run_lu_eval.sh

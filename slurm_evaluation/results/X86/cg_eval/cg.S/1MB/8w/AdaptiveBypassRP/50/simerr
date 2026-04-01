@@ -1,0 +1,22 @@
+warn: DRAM device capacity (8192 Mbytes) does not match the address range assigned (512 Mbytes)
+warn: Sockets disabled, not accepting gdb connections
+warn: l2bus.slave is deprecated. `slave` is now called `cpu_side_ports`
+warn: l2bus.slave is deprecated. `slave` is now called `cpu_side_ports`
+warn: l2bus.master is deprecated. `master` is now called `mem_side_ports`
+warn: membus.slave is deprecated. `slave` is now called `cpu_side_ports`
+warn: membus.master is deprecated. `master` is now called `mem_side_ports`
+warn: membus.slave is deprecated. `slave` is now called `cpu_side_ports`
+warn: interrupts.int_master is deprecated. `int_master` is now called `int_requestor`
+warn: membus.master is deprecated. `master` is now called `mem_side_ports`
+warn: interrupts.int_slave is deprecated. `int_slave` is now called `int_responder`
+warn: membus.slave is deprecated. `slave` is now called `cpu_side_ports`
+warn: membus.master is deprecated. `master` is now called `mem_side_ports`
+warn: No dot file generated. Please install pydot to generate the dot file and pdf.
+info: Entering event queue @ 0.  Starting simulation...
+info: Increasing stack size by one page.
+warn: readlink() called on '/proc/self/exe' may yield unexpected results in various settings.
+      Returning '/data/home/nta52/gem5-adaptive-bypass-cache-project/NPB3.3.1/NPB3.3-SER/bin/cg.S.x'
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall rt_sigaction(...)
+      (further warnings will be suppressed)
+info: Increasing stack size by one page.

@@ -1,0 +1,73 @@
+Global frequency set at 1000000000000 ticks per second
+Redirecting stdout to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/lu_eval/lu.S/128kB/8w/AdaptiveBypassRP/100/simout
+Redirecting stderr to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/lu_eval/lu.S/128kB/8w/AdaptiveBypassRP/100/simerr
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 20.1.0.2
+gem5 compiled Mar 25 2026 23:23:37
+gem5 started Apr  1 2026 01:15:44
+gem5 executing on ARCH-750, pid 4190727
+command line: /data/home/nta52/gem5-adaptive-bypass-cache-project/build/X86/gem5.opt -re --outdir=/data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/lu_eval/lu.S/128kB/8w/AdaptiveBypassRP/100 /data/home/nta52/gem5-adaptive-bypass-cache-project/configs/evaluation/run_benchmark.py --l2_size 128kB --l2_assoc 8 --l2_initial_bypass_probability 100 --l2_rp AdaptiveBypassRP /data/home/nta52/gem5-adaptive-bypass-cache-project/NPB3.3.1/NPB3.3-SER/bin/lu.S.x
+
+info: Standard input is not a terminal, disabling listeners.
+Beginning simulation with L2=128kB (8-way), RP=AdaptiveBypassRP (InitProb=100)
+
+
+ NAS Parallel Benchmarks (NPB3.3-SER) - LU Benchmark
+
+ Size:   12x  12x  12
+ Iterations:   50
+
+ Time step    1
+ Time step   20
+ Time step   40
+ Time step   50
+
+ Verification being performed for class S
+ Accuracy setting for epsilon =  0.1000000000000E-07
+ Comparison of RMS-norms of residual
+           1   0.1619634321098E-01 0.1619634321098E-01 0.8804102745159E-13
+           2   0.2197674516482E-02 0.2197674516482E-02 0.1288605775465E-12
+           3   0.1517992765339E-02 0.1517992765340E-02 0.3002640089730E-12
+           4   0.1502958443601E-02 0.1502958443599E-02 0.1237597256955E-11
+           5   0.3426407315590E-01 0.3426407315590E-01 0.1377083171983E-13
+ Comparison of RMS-norms of solution error
+           1   0.6422331995796E-03 0.6422331995796E-03 0.8930446909631E-13
+           2   0.8414434204735E-04 0.8414434204735E-04 0.3784976867350E-13
+           3   0.5858826961650E-04 0.5858826961649E-04 0.3230357253651E-12
+           4   0.5847422259515E-04 0.5847422259516E-04 0.2087082164142E-12
+           5   0.1310334791411E-02 0.1310334791411E-02 0.5510642406875E-13
+ Comparison of surface integral
+               0.7841892886594E+01 0.7841892886594E+01 0.1132607181129E-15
+ Verification Successful
+
+
+ LU Benchmark Completed.
+ Class           =                        S
+ Size            =             12x  12x  12
+ Iterations      =                       50
+ Time in seconds =                     0.75
+ Mop/s total     =                   135.84
+ Operation type  =           floating point
+ Verification    =               SUCCESSFUL
+ Version         =                    3.3.1
+ Compile date    =              25 Mar 2026
+
+ Compile options:
+    F77          = gfortran
+    FLINK        = gfortran
+    F_LIB        = (none)
+    F_INC        = (none)
+    FFLAGS       = -O3 -static -fno-second-underscore
+    FLINKFLAGS   = -O3 -static
+    RAND         = (none)
+
+
+ Please send all errors/feedbacks to:
+
+ NPB Development Team
+ npb@nas.nasa.gov
+
+
+Exit @ tick 794516752000 because exiting with last active thread context

@@ -1,0 +1,61 @@
+Global frequency set at 1000000000000 ticks per second
+Redirecting stdout to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/mg_eval/mg.S/256kB/8w/AdaptiveBypassRP/0/simout
+Redirecting stderr to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/mg_eval/mg.S/256kB/8w/AdaptiveBypassRP/0/simerr
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 20.1.0.2
+gem5 compiled Mar 25 2026 23:23:37
+gem5 started Mar 31 2026 23:48:33
+gem5 executing on ARCH-750, pid 4173901
+command line: /data/home/nta52/gem5-adaptive-bypass-cache-project/build/X86/gem5.opt -re --outdir=/data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/mg_eval/mg.S/256kB/8w/AdaptiveBypassRP/0 /data/home/nta52/gem5-adaptive-bypass-cache-project/configs/evaluation/run_benchmark.py --l2_size 256kB --l2_assoc 8 --l2_initial_bypass_probability 0 --l2_rp AdaptiveBypassRP /data/home/nta52/gem5-adaptive-bypass-cache-project/NPB3.3.1/NPB3.3-SER/bin/mg.S.x
+
+info: Standard input is not a terminal, disabling listeners.
+Beginning simulation with L2=256kB (8-way), RP=AdaptiveBypassRP (InitProb=0)
+
+
+ NAS Parallel Benchmarks (NPB3.3-SER) - MG Benchmark
+
+ No input file. Using compiled defaults 
+ Size:   32x  32x  32  (class S)
+ Iterations:   4
+
+ Initialization time:           0.038 seconds
+
+  iter   1
+  iter   4
+
+ Benchmark completed 
+ VERIFICATION SUCCESSFUL 
+ L2 Norm is  0.5307707005735E-04
+ Error is    0.1659688947021E-12
+
+
+ MG Benchmark Completed.
+ Class           =                        S
+ Size            =             32x  32x  32
+ Iterations      =                        4
+ Time in seconds =                     0.09
+ Mop/s total     =                    86.15
+ Operation type  =           floating point
+ Verification    =               SUCCESSFUL
+ Version         =                    3.3.1
+ Compile date    =              25 Mar 2026
+
+ Compile options:
+    F77          = gfortran
+    FLINK        = gfortran
+    F_LIB        = (none)
+    F_INC        = (none)
+    FFLAGS       = -O3 -static -fno-second-underscore
+    FLINKFLAGS   = -O3 -static
+    RAND         = randi8
+
+
+ Please send all errors/feedbacks to:
+
+ NPB Development Team
+ npb@nas.nasa.gov
+
+
+Exit @ tick 127591120000 because exiting with last active thread context

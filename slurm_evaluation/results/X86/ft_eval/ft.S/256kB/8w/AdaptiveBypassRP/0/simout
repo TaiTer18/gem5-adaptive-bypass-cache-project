@@ -1,0 +1,58 @@
+Global frequency set at 1000000000000 ticks per second
+Redirecting stdout to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/ft_eval/ft.S/256kB/8w/AdaptiveBypassRP/0/simout
+Redirecting stderr to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/ft_eval/ft.S/256kB/8w/AdaptiveBypassRP/0/simerr
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 20.1.0.2
+gem5 compiled Mar 25 2026 23:23:37
+gem5 started Mar 31 2026 22:07:59
+gem5 executing on ARCH-750, pid 4160431
+command line: /data/home/nta52/gem5-adaptive-bypass-cache-project/build/X86/gem5.opt -re --outdir=/data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86/ft_eval/ft.S/256kB/8w/AdaptiveBypassRP/0 /data/home/nta52/gem5-adaptive-bypass-cache-project/configs/evaluation/run_benchmark.py --l2_size 256kB --l2_assoc 8 --l2_initial_bypass_probability 0 --l2_rp AdaptiveBypassRP /data/home/nta52/gem5-adaptive-bypass-cache-project/NPB3.3.1/NPB3.3-SER/bin/ft.S.x
+
+info: Standard input is not a terminal, disabling listeners.
+Beginning simulation with L2=256kB (8-way), RP=AdaptiveBypassRP (InitProb=0)
+
+
+ NAS Parallel Benchmarks (NPB3.3-SER) - FT Benchmark
+
+ Size                :   64x  64x  64
+ Iterations          :              6
+
+ T =    1     Checksum =    5.546087004964D+02    4.845363331978D+02
+ T =    2     Checksum =    5.546385409190D+02    4.865304269511D+02
+ T =    3     Checksum =    5.546148406171D+02    4.883910722337D+02
+ T =    4     Checksum =    5.545423607415D+02    4.901273169046D+02
+ T =    5     Checksum =    5.544255039624D+02    4.917475857993D+02
+ T =    6     Checksum =    5.542683411903D+02    4.932597244941D+02
+ Verification test for FT successful
+
+
+ FT Benchmark Completed.
+ Class           =                        S
+ Size            =             64x  64x  64
+ Iterations      =                        6
+ Time in seconds =                     2.30
+ Mop/s total     =                    77.11
+ Operation type  =           floating point
+ Verification    =               SUCCESSFUL
+ Version         =                    3.3.1
+ Compile date    =              25 Mar 2026
+
+ Compile options:
+    F77          = gfortran
+    FLINK        = gfortran
+    F_LIB        = (none)
+    F_INC        = (none)
+    FFLAGS       = -O3 -static -fno-second-underscore
+    FLINKFLAGS   = -O3 -static
+    RAND         = randi8
+
+
+ Please send all errors/feedbacks to:
+
+ NPB Development Team
+ npb@nas.nasa.gov
+
+
+Exit @ tick 2614729395000 because exiting with last active thread context
