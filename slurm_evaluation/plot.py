@@ -119,6 +119,14 @@ def plot_ipc_vs_size(df, output_dir):
     if plot_df.empty: return
         
     ax = sns.barplot(x='Size', y='IPC', hue='Policy', data=plot_df, palette="viridis")
+    
+    # Auto-zoom the Y-axis so microscopic performance differences are visible
+    min_val = plot_df['IPC'].min()
+    max_val = plot_df['IPC'].max()
+    y_padding = (max_val - min_val) * 0.15
+    if y_padding == 0: y_padding = 0.05
+    plt.ylim(min_val - y_padding, max_val + y_padding)
+    
     plt.title('IPC Comparison: LRU vs Adaptive Bypassing across Cache Sizes')
     plt.ylabel('Instructions Per Cycle (Higher is Better)')
     plt.xlabel('L2 Cache Size')
@@ -149,6 +157,12 @@ def plot_miss_rate_vs_prob(df, target_size, output_dir):
     if not pd.isna(lru_baseline):
         plt.axhline(lru_baseline, ls='--', color='gray', label='Baseline LRU')
         plt.legend()
+        
+        # Force the Y-axis to expand so the baseline LRU line is actually visible on the chart!
+        current_ymin, current_ymax = plt.ylim()
+        padding = abs(lru_baseline - current_ymin) * 0.5
+        if padding == 0: padding = 0.001
+        plt.ylim(min(current_ymin, lru_baseline - padding), max(current_ymax, lru_baseline + padding))
         
     plt.title(f'L2 Miss Rate vs Initial Bypass Probability ({target_size} L2 Cache)')
     plt.ylabel('L2 Miss Rate (Lower is Better)')
