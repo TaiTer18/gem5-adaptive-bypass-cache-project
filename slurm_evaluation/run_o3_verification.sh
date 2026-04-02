@@ -1,6 +1,5 @@
 #!/bin/bash
 #SBATCH --job-name=gem5_o3_verify
-#SBATCH --ntasks=2
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=16G
 #SBATCH --time=1:00:00

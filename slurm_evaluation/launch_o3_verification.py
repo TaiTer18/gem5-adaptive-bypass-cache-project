@@ -51,7 +51,7 @@ if __name__ == "__main__":
             '--l2_assoc', str(assoc),
             '--l2_initial_bypass_probability', str(prob),
             '--l2_rp', policy,
-            '--cpu_type', 'O3CPU',
+            '--cpu_type', 'DerivO3CPU',
             cg_bin_path
         )
         jobs.append(run)

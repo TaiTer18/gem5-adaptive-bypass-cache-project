@@ -68,6 +68,7 @@ SimpleOpts.add_option('--l2_size', default='256kB', help="L2 cache size")
 SimpleOpts.add_option('--l2_assoc', default=8, type="int", help="L2 cache set associativity")
 SimpleOpts.add_option('--l2_rp', default='LRURP', choices=['LRURP', 'AdaptiveBypassRP'], help="Replacement Policy")
 SimpleOpts.add_option('--l2_initial_bypass_probability', default=50, type='int', help="Initial bypass probability (0-100) for AdaptiveBypassRP")
+SimpleOpts.add_option('--cpu_type', default='TimingSimpleCPU', choices=['TimingSimpleCPU', 'DerivO3CPU'], help="CPU model to use")
 SimpleOpts.add_option('--binary_args', default='', help="Quoted argument string passed to the benchmark binary")
 SimpleOpts.add_option('--env', action='append', default=[], help="Environment variables for the benchmark process (format: KEY=VALUE)")
 SimpleOpts.add_option('--omp_threads', default=1, type='int', help="Value for OMP_NUM_THREADS in benchmark process environment")
@@ -91,7 +92,10 @@ system.clk_domain.voltage_domain = VoltageDomain()
 system.mem_mode = 'timing'
 system.mem_ranges = [AddrRange('512MB')]
 
-system.cpu = TimingSimpleCPU()
+if opts.cpu_type == 'DerivO3CPU':
+    system.cpu = DerivO3CPU()
+else:
+    system.cpu = TimingSimpleCPU()
 system.cpu.icache = L1ICache()
 system.cpu.dcache = L1DCache()
 
