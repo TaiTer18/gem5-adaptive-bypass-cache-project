@@ -1,0 +1,55 @@
+import os
+import argparse
+import multiprocessing as mp
+from pathlib import Path
+from run import gem5Run
+
+def worker(run):
+    run.run()
+    json = run.dumpsJson()
+    print(json)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('N', action="store", default=1, type=int, help="Number of cores used")
+    args = parser.parse_args()
+
+    script_dir = Path(__file__).resolve().parent
+    gem5_root = str(script_dir.parent)
+
+    binary_path = os.path.join(script_dir, 'synthetic_cache_killer.x')
+    
+    jobs = []
+
+    # Targeted run: Synthetic at 1MB L2 with O3CPU
+    bm_name = 'synthetic_killer'
+    l2_size = '1MB'
+    assoc = 8
+    
+    configurations = [
+        ('LRURP', 50),
+        ('AdaptiveBypassRP', 0)
+    ]
+    
+    for policy, prob in configurations:
+        name = f"{bm_name}_{l2_size}_{assoc}w_{policy}_{prob}p_O3"
+        outdir = f'results/X86_O3/synthetic/{bm_name}/{l2_size}/{assoc}w/{policy}/{prob}'
+        
+        run_script_path = os.path.join(gem5_root, 'configs/evaluation/run_benchmark.py')
+        
+        run = gem5Run.createSERun(
+            name,
+            os.path.join(gem5_root, 'build/X86/gem5.opt'),
+            run_script_path,
+            outdir,
+            '--l2_size', l2_size,
+            '--l2_assoc', str(assoc),
+            '--l2_initial_bypass_probability', str(prob),
+            '--l2_rp', policy,
+            '--cpu_type', 'DerivO3CPU',
+            binary_path
+        )
+        jobs.append(run)
+
+    with mp.Pool(args.N) as pool:
+        pool.map(worker, jobs)
