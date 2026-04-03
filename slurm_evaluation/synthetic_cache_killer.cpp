@@ -18,10 +18,10 @@ int main() {
 
     std::cout << "Commencing Synthetic Cache-Killer Execution..." << std::endl;
 
-    // Execute 100 loops of a massive 4MB memory sweep
+    // Execute 10 loops of a massive 4MB memory sweep
     // This is engineered specifically so that Memory L2 Miss Latency completely
     // dominates the CPU pipeline, mimicking a purely memory-bound architecture workload.
-    for (int iter = 0; iter < 100; iter++) {
+    for (int iter = 0; iter < 10; iter++) {
         for (int i = 0; i < matrix_size; i++) {
             // Unpredictable contiguous streaming fetch (Pollutes pure LRU)
             sum += streaming_matrix[i]; 
