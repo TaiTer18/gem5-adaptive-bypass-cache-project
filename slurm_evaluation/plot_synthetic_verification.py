@@ -19,7 +19,7 @@ def main():
     base_dir = "results/X86_O3/synthetic/synthetic_killer/1MB/8w"
     
     lru_stats = os.path.join(base_dir, "LRURP/50/stats.txt")
-    adapt_stats = os.path.join(base_dir, "AdaptiveBypassRP/0/stats.txt")
+    adapt_stats = os.path.join(base_dir, "AdaptiveBypassRP/100/stats.txt")
     
     lru_ipc = extract_ipc(lru_stats)
     adapt_ipc = extract_ipc(adapt_stats)

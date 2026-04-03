@@ -28,7 +28,7 @@ if __name__ == "__main__":
     
     configurations = [
         ('LRURP', 50),
-        ('AdaptiveBypassRP', 0)
+        ('AdaptiveBypassRP', 100)
     ]
     
     for policy, prob in configurations:
