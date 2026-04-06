@@ -73,6 +73,9 @@ sbatch run_ft_eval_2.sh
 
 # Run the Lower-Upper Gauss-Seidel evaluation
 sbatch run_lu_eval.sh
+
+# Run the O3 verification
+sbatch run_o3_verification.sh
 ```
 
 ### Where are results saved?
@@ -83,4 +86,22 @@ sbatch run_lu_eval.sh
 ---
 
 ## 4. Analyzing the Final Data
-TODO
+Once all SLURM jobs have completed successfully, you can automatically parse the generated data points and generate all plots
+
+Ensure you have your python plotting dependencies installed (`pip install pandas matplotlib seaborn`). Then, from inside the `slurm_evaluation/` directory, run:
+```bash
+python3 plot_all.py
+```
+This script recursively parses all `stats.txt` files and generates the graphs inside the `plots_all/` directory. These include:
+1. Normalized IPC Speedups
+2. L2 Miss Rate Sensitivities
+3. Tracker Accuracy Breakdowns
+4. Absolute MPKI Savings
+5. Capacity Sensitivities 
+6. Parameter Mapping Heatmaps
+
+#### Out-of-Order (O3CPU) Verification
+To prove that our Cache Miss Rate savings accurately map to physical pipeline IPC speedups, we use the detailed `DerivO3CPU` memory-parallelism model. After running `sbatch run_o3_verification.sh`, you can generate its independent graph by running:
+```bash
+python3 plot_o3_verification.py
+```

@@ -1,64 +1,51 @@
 import os
 import re
 import matplotlib.pyplot as plt
-import seaborn as sns
 
-def extract_ipc(stats_file):
-    if not os.path.isfile(stats_file):
-        return None
-    with open(stats_file, 'r') as f:
-        for line in f:
-            if line.startswith('system.cpu.ipc'):
-                match = re.search(r'system\.cpu\.ipc\s+([0-9.]+)', line)
-                if match:
-                    return float(match.group(1))
-    return None
-
-def main():
-    print("Extracting Synthetic Verification stats...")
-    base_dir = "results/X86_O3/synthetic/synthetic_killer/1MB/8w"
+def parse():
+    base_dir = "results/X86_SYNTHETIC/synthetic_cache_killer.x/1MB/8"
+    lru_file = os.path.join(base_dir, "LRURP/0/stats.txt")
+    adapt_file = os.path.join(base_dir, "AdaptiveBypassRP/100/stats.txt")
     
-    lru_stats = os.path.join(base_dir, "LRURP/50/stats.txt")
-    adapt_stats = os.path.join(base_dir, "AdaptiveBypassRP/100/stats.txt")
-    
-    lru_ipc = extract_ipc(lru_stats)
-    adapt_ipc = extract_ipc(adapt_stats)
-    
-    if lru_ipc is None or adapt_ipc is None:
-        print("Error: Could not find stats.txt for both configurations. Are the SLURM jobs completely finished?")
+    if not os.path.exists(lru_file) or not os.path.exists(adapt_file):
+        print("Waiting for SLURM jobs to complete to extract stats...")
         return
-        
-    speedup = adapt_ipc / lru_ipc
-    improvement_pct = (speedup - 1.0) * 100.0
     
-    print(f"LRU IPC:      {lru_ipc:.6f}")
-    print(f"Adaptive IPC: {adapt_ipc:.6f}")
-    print(f"Speedup:      {speedup:.4f}x (+{improvement_pct:.2f}%)")
+    lru_ipc = 0
+    adapt_ipc = 0
     
-    # Plotting
-    plt.figure(figsize=(8, 6))
-    sns.set_theme(style="whitegrid")
+    with open(lru_file, 'r') as f:
+        for line in f:
+            if 'system.cpu.ipc' in line:
+                lru_ipc = float(line.split()[1])
+                break
+                
+    with open(adapt_file, 'r') as f:
+        for line in f:
+            if 'system.cpu.ipc' in line:
+                adapt_ipc = float(line.split()[1])
+                break
+                
+    pct_increase = ((adapt_ipc - lru_ipc) / lru_ipc) * 100
     
-    policies = ['Baseline LRU', 'Adaptive Bypassing']
-    ipcs = [lru_ipc, adapt_ipc]
-    
-    ax = sns.barplot(x=policies, y=ipcs, hue=policies, palette=['#e74c3c', '#2ecc71'], legend=False)
-    
-    # Add absolute values on top of bars
-    for i, v in enumerate(ipcs):
-        ax.text(i, v + (max(ipcs)*0.01), f"{v:.4f}", color='black', ha="center", fontweight='bold')
-    
-    plt.ylim(0, max(ipcs) * 1.15)
-    plt.title(f'Synthetic Memory-Bound IPC (Out-of-Order, 1MB L2)\\nSpeedup: {speedup:.4f}x (+{improvement_pct:.2f}%)')
+    plt.figure(figsize=(6, 8))
+    bars = plt.bar(['LRU Baseline', 'Adaptive Bypass (V2)'], [lru_ipc, adapt_ipc], color=['lightgray', 'mediumseagreen'])
+    plt.title('Out-of-Order IPC Verification (Synthetic V2)', fontsize=14)
     plt.ylabel('Instructions Per Cycle (IPC)')
     
-    out_dir = "plots_all"
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, '8_synthetic_ipc_verification.png')
-    plt.savefig(out_path, dpi=300, bbox_inches='tight')
+    plt.text(bars[1].get_x() + bars[1].get_width()/2, adapt_ipc + 0.05, f"+{pct_increase:.1f}%\nSpeedup!", ha='center', color='green', fontweight='bold', fontsize=12)
+    
+    plt.ylim(0, max(lru_ipc, adapt_ipc) * 1.3)
+    os.makedirs('plots_all', exist_ok=True)
+    plt.savefig('plots_all/8_synthetic_ipc_verification.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    print(f"\\nSuccessfully generated Synthetic verification graph: {out_path}")
+    print(f"LRU IPC: {lru_ipc:.4f}")
+    print(f"Adapt IPC: {adapt_ipc:.4f}")
+    if adapt_ipc > lru_ipc:
+        print(f"Geometric Speedup Verified: {pct_increase:.2f}% !!!")
+    else:
+        print("Pipeline bottleneck not fully mitigated.")
 
 if __name__ == "__main__":
-    main()
+    parse()

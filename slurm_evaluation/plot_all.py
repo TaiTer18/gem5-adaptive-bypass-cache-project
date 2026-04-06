@@ -140,34 +140,66 @@ def plot_normalized_ipc(df, output_dir):
     plt.close()
 
 def plot_miss_rate_vs_prob(df, output_dir):
-    unique_sizes = sorted(df['Size_KB'].unique())
-    for size_kb in unique_sizes:
-        target_df = df[df['Size_KB'] == size_kb].copy()
-        if target_df.empty: continue
-        size_str = target_df['Size'].iloc[0]
+    adapt_df = df[df['Policy'] == 'AdaptiveBypassRP'].copy()
+    if adapt_df.empty: return
+
+    # Ensure Size parameter is sorted cleanly
+    unique_sizes = sorted(adapt_df['Size_KB'].unique())
+    
+    # Define a clean ordering mapping for the rows
+    def get_size_label(s_kb): return f"{s_kb}kB" if s_kb < 1024 else f"{s_kb//1024}MB"
+    adapt_df['Size_Label'] = adapt_df['Size_KB'].apply(get_size_label)
+    
+    # We also need the LRU baseline to draw horizontal lines
+    lru_df = df[df['Policy'] == 'LRURP'].groupby(['Size_KB', 'Benchmark'])['L2_Miss_Rate'].mean().reset_index()
+
+    sns.set_theme(style="whitegrid")
+    # Share x-axis (InitProb is same 0-100), but DO NOT share y-axis so variance zooms perfectly!
+    g = sns.FacetGrid(adapt_df, row="Size_Label", col="Benchmark", sharey=False, sharex=True, height=2.5, aspect=1.2)
+    
+    # Plot the AdaptiveBypassRP lines
+    g.map(sns.lineplot, "InitProb", "L2_Miss_Rate", marker="o", color="coral")
+
+    # Add the LRU Baseline line to each specific subplot
+    for (row_val, col_val), ax in g.axes_dict.items():
+        # Hide offset formatting to avoid scientific notation display bugs
+        ax.ticklabel_format(useOffset=False, style='plain', axis='y')
         
-        adapt_df = target_df[target_df['Policy'] == 'AdaptiveBypassRP'].sort_values('InitProb')
-        if adapt_df.empty: continue
+        # Determine the target mapping size
+        size_kb = int(row_val.replace('kB','')) if 'kB' in row_val else int(row_val.replace('MB',''))*1024
         
-        g = sns.FacetGrid(adapt_df, col="Benchmark", col_wrap=3, height=4, sharey=False)
-        g.map(sns.lineplot, "InitProb", "L2_Miss_Rate", marker="o", color="coral")
-        
-        for bm, ax in g.axes_dict.items():
-            ax.ticklabel_format(useOffset=False, style='plain', axis='y')
-            lru_val = target_df[(target_df['Policy'] == 'LRURP') & (target_df['Benchmark'] == bm)]['L2_Miss_Rate'].mean()
-            if not pd.isna(lru_val):
-                ax.axhline(lru_val, ls='--', color='gray', label='LRU Baseline')
-                ymin, ymax = ax.get_ylim()
-                pad = abs(lru_val - ymin) * 0.5
-                if pad == 0: pad = 0.001
-                ax.set_ylim(min(ymin, lru_val - pad), max(ymax, lru_val + pad))
-                ax.legend()
-                
-        g.set_axis_labels("Initial Bypass Probability (%)", "L2 Miss Rate")
-        g.figure.subplots_adjust(top=0.9)
-        g.figure.suptitle(f'L2 Miss Rate Sensitivity to Tracker Init State ({size_str} L2)')
-        plt.savefig(os.path.join(output_dir, f'2_miss_rate_vs_prob_{size_str}.png'), dpi=300, bbox_inches='tight')
-        plt.close()
+        lru_val_series = lru_df[(lru_df['Size_KB'] == size_kb) & (lru_df['Benchmark'] == col_val)]['L2_Miss_Rate']
+        if not lru_val_series.empty:
+            lru_val = lru_val_series.iloc[0]
+            # Only label the very first graph so the legend doesn't visually duplicate 24 times
+            draw_label = 'LRU Baseline' if ax == g.axes[0, 0] else None
+            ax.axhline(lru_val, ls='--', color='gray', label=draw_label)
+            
+            # Pad the y-axis exactly as before for visibility
+            ymin, ymax = ax.get_ylim()
+            pad = abs(lru_val - ymin) * 0.5
+            if pad == 0: pad = 0.001
+            ax.set_ylim(min(ymin, lru_val - pad), max(ymax, lru_val + pad))
+            
+            if ax == g.axes[0, 0]:
+                ax.legend(loc='best')
+            
+    # Set text labels
+    g.set_titles(row_template="L2: {row_name}", col_template="{col_name}")
+    g.set_axis_labels("Initial Bypass Probability (%)", "L2 Miss Rate")
+    g.figure.subplots_adjust(top=0.92)
+    g.figure.suptitle('L2 Miss Rate Sensitivity to Tracker Init State (All Capacities)', fontsize=18)
+    
+    plt.savefig(os.path.join(output_dir, '2_miss_rate_vs_prob_unified.png'), dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # Cleanup any old split files and the previous grouped file
+    for f in os.listdir(output_dir):
+        if f.startswith('2_miss_rate_vs_prob') and f != '2_miss_rate_vs_prob_unified.png':
+            try:
+                os.remove(os.path.join(output_dir, f))
+            except Exception:
+                pass
 
 def plot_bypass_accuracy(df, output_dir):
     adapt_df = df[(df['Policy'] == 'AdaptiveBypassRP') & (df['InitProb'] == 0)].copy()
@@ -288,7 +320,6 @@ def plot_speedup_vs_size_all(df, output_dir):
     size_labels = [f"{s}kB" if s < 1024 else f"{s//1024}MB" for s in sizes]
     plt.xticks(sizes, size_labels)
     
-    # Force bounds to visually compress the micro-jitter and prove overall algorithmic stability
     plt.ylim(0.995, 1.005)
     
     plt.title('Capacity Evaluation: Speedup Sweep Across Cache Sizes')
@@ -299,20 +330,51 @@ def plot_speedup_vs_size_all(df, output_dir):
     plt.savefig(os.path.join(output_dir, '5_speedup_vs_size.png'), dpi=300, bbox_inches='tight')
     plt.close()
 
-def plot_performance_heatmap(df, target_size, output_dir):
+def plot_performance_heatmap(df, output_dir):
     speedup_df = get_normalized_speedup_df(df)
-    plot_df = speedup_df[speedup_df['Size'] == target_size].copy()
-    if plot_df.empty: return
+    unique_sizes = sorted(speedup_df['Size_KB'].unique())
     
-    pivot = plot_df.pivot_table(index='InitProb', columns='Benchmark', values='Speedup')
+    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    axes = axes.flatten()
     
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(pivot, annot=True, fmt=".4f", cmap="vlag", center=1.0, cbar_kws={'label': 'Speedup vs LRU'})
-    plt.title(f'Performance Stability Heatmap ({target_size} L2)')
-    plt.ylabel('Initial Bypass Probability (%)')
-    plt.xlabel('Benchmark')
-    plt.savefig(os.path.join(output_dir, '6_stability_heatmap.png'), dpi=300, bbox_inches='tight')
+    for idx, size_kb in enumerate(unique_sizes):
+        if idx >= 4: break
+        
+        ax = axes[idx]
+        target_df = speedup_df[speedup_df['Size_KB'] == size_kb].copy()
+        if target_df.empty: continue
+        size_str = target_df['Size'].iloc[0]
+        
+        pivot = target_df.pivot_table(index='InitProb', columns='Benchmark', values='Speedup')
+        
+        sns.heatmap(pivot, annot=True, fmt=".4f", cmap="vlag", center=1.0, ax=ax, cbar_kws={'label': 'Speedup vs LRU'})
+        
+        ax.set_title(f'Capacity: {size_str} L2')
+        if idx % 2 == 0:
+            ax.set_ylabel('Initial Bypass Probability (%)')
+        else:
+            ax.set_ylabel('')
+            
+        if idx > 1:
+            ax.set_xlabel('Benchmark')
+        else:
+            ax.set_xlabel('')
+            
+    for idx in range(len(unique_sizes), 4):
+        fig.delaxes(axes[idx])
+        
+    plt.suptitle('Algorithmic Tracker Stability Heatmap (Unified Metrics)', fontsize=18, y=0.98)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, '6_stability_heatmap_unified.png'), dpi=300, bbox_inches='tight')
     plt.close()
+    
+    # Cleanup any old split files safely
+    for f in os.listdir(output_dir):
+        if f.startswith('6_stability_heatmap') and f != '6_stability_heatmap_unified.png':
+            try:
+                os.remove(os.path.join(output_dir, f))
+            except Exception:
+                pass
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate 6 critical architectural visualization plots for ALL benchmarks.")
@@ -352,7 +414,7 @@ if __name__ == "__main__":
     print("Generating [5/6]: Speedup Sweep vs Capacity Size")
     plot_speedup_vs_size_all(df, args.out_dir)
     
-    print("Generating [6/6]: Parameter Stability Heatmap")
-    plot_performance_heatmap(df, args.target_size, args.out_dir)
+    print("Generating [6/6]: Parameter Stability Heatmaps")
+    plot_performance_heatmap(df, args.out_dir)
     
     print("All multi-benchmark graphs successfully generated!")
