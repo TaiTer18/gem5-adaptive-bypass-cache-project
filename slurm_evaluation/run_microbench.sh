@@ -2,7 +2,7 @@
 #SBATCH --job-name=microbench_eval
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=16G
-#SBATCH --time=04:00:00
+#SBATCH --time=01:00:00
 
 # Force dynamic native compilation safely on the remote target immediately before dispatching
 cd microbench
