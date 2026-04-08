@@ -1,0 +1,15 @@
+Global frequency set at 1000000000000 ticks per second
+Redirecting stdout to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86_MICROBENCH/ML2/32kB/8/AdaptiveBypassRP/0/simout
+Redirecting stderr to /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86_MICROBENCH/ML2/32kB/8/AdaptiveBypassRP/0/simerr
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 20.1.0.2
+gem5 compiled Apr  2 2026 21:46:33
+gem5 started Apr  8 2026 01:56:02
+gem5 executing on ARCH-750, pid 1327636
+command line: /data/home/nta52/gem5-adaptive-bypass-cache-project/build/X86/gem5.opt -re --outdir=/data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/results/X86_MICROBENCH/ML2/32kB/8/AdaptiveBypassRP/0 /data/home/nta52/gem5-adaptive-bypass-cache-project/configs/evaluation/run_benchmark.py --l2_size 32kB --l2_assoc 8 --l2_initial_bypass_probability 0 --l2_rp AdaptiveBypassRP --cpu_type DerivO3CPU /data/home/nta52/gem5-adaptive-bypass-cache-project/slurm_evaluation/microbench/ML2/bench.X86
+
+info: Standard input is not a terminal, disabling listeners.
+Beginning simulation with L2=32kB (8-way), RP=AdaptiveBypassRP (InitProb=0)
+Exit @ tick 8110780000 because exiting with last active thread context
