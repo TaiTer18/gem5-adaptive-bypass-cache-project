@@ -11,9 +11,9 @@ def parse():
     adapt_100_ipcs = []
     
     for bm in benchmarks:
-        lru_file = os.path.join(base_dir, bm, "1MB/8/LRURP/0/stats.txt")
-        adapt_0_file = os.path.join(base_dir, bm, "1MB/8/AdaptiveBypassRP/0/stats.txt")
-        adapt_100_file = os.path.join(base_dir, bm, "1MB/8/AdaptiveBypassRP/100/stats.txt")
+        lru_file = os.path.join(base_dir, bm, "32kB/8/LRURP/0/stats.txt")
+        adapt_0_file = os.path.join(base_dir, bm, "32kB/8/AdaptiveBypassRP/0/stats.txt")
+        adapt_100_file = os.path.join(base_dir, bm, "32kB/8/AdaptiveBypassRP/100/stats.txt")
         
         ipcs = {'lru': 0, 'a0': 0, 'a100': 0}
         

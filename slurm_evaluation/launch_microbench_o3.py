@@ -17,7 +17,7 @@ def launch():
     script_dir = Path(__file__).resolve().parent
     gem5_root = str(script_dir.parent)
 
-    l2_size = '1MB'
+    l2_size = '32kB'
     assoc = 8
 
     # The exact isolated 5 workloads required to map the spectrum of cache behavior
