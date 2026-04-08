@@ -12,3 +12,4 @@ command line: /data/home/nta52/gem5-adaptive-bypass-cache-project/build/X86/gem5
 
 info: Standard input is not a terminal, disabling listeners.
 Beginning simulation with L2=1MB (8-way), RP=AdaptiveBypassRP (InitProb=100)
+Exit @ tick 16237774000 because exiting with last active thread context
