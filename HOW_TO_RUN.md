@@ -105,3 +105,16 @@ To prove that our Cache Miss Rate savings accurately map to physical pipeline IP
 ```bash
 python3 plot_o3_verification.py
 ```
+
+#### Wisconsin Microbenchmarks (Micro-Architectural Evaluation)
+To specifically validate the micro-architectural mechanism of the Adaptive Bypass policy, we run a suite of isolated Wisconsin Microbenchmarks (`MM`, `MIM`, `STL2`, `CCa`, `ML2`) targeted against a capacity-constrained 32kB L2 Cache. This validates the policy's capacity to prevent cache pollution and save dram write-back bandwidth. Note that the scripts will automatically compile the raw C code natively when executing the pipeline.
+
+Run the automated evaluation block:
+```bash
+sbatch run_microbench.sh
+```
+
+Once the evaluation completes successfully, generate the comprehensive 2x2 graph by running:
+```bash
+python3 plot_microbench.py
+```

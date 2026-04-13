@@ -1,6 +1,7 @@
 import os
 import argparse
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -10,7 +11,9 @@ def parse_stats_file(filepath):
         'l2_miss_rate': 0.0,
         'l2_mpki': 0.0,
         'effective_bypasses': 0,
-        'ineffective_bypasses': 0
+        'ineffective_bypasses': 0,
+        'sim_seconds': 0.0,
+        'writebacks': 0.0
     }
     
     if not os.path.exists(filepath): return stats
@@ -35,6 +38,10 @@ def parse_stats_file(filepath):
                 stats['effective_bypasses'] = int(line.split()[1])
             elif 'system.l2cache.replacement_policy.ineffectiveBypasses' in line:
                 stats['ineffective_bypasses'] = int(line.split()[1])
+            elif line.startswith('sim_seconds '):
+                stats['sim_seconds'] = float(line.split()[1])
+            elif 'system.l2bus.trans_dist::WritebackDirty' in line:
+                stats['writebacks'] = float(line.split()[1])
 
     if stats['ipc'] == 0.0 and num_cycles > 0:
         stats['ipc'] = committed_insts / num_cycles
@@ -95,7 +102,9 @@ def extract_all_data(results_target_dir):
                                 'L2_Miss_Rate': stats['l2_miss_rate'],
                                 'L2_MPKI': stats['l2_mpki'],
                                 'Effective_Bypasses': stats['effective_bypasses'],
-                                'Ineffective_Bypasses': stats['ineffective_bypasses']
+                                'Ineffective_Bypasses': stats['ineffective_bypasses'],
+                                'Sim_Seconds': stats['sim_seconds'],
+                                'Writebacks': stats['writebacks']
                             })
                             
     df = pd.DataFrame(data)
