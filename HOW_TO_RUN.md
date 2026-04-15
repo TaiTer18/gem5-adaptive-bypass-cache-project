@@ -92,13 +92,7 @@ Ensure you have your python plotting dependencies installed (`pip install pandas
 ```bash
 python3 plot_all.py
 ```
-This script recursively parses all `stats.txt` files and generates the graphs inside the `plots_all/` directory. These include:
-1. Normalized IPC Speedups
-2. L2 Miss Rate Sensitivities
-3. Tracker Accuracy Breakdowns
-4. Absolute MPKI Savings
-5. Capacity Sensitivities 
-6. Parameter Mapping Heatmaps
+This script recursively parses all `stats.txt` files and generates the graphs inside the `plots_all/` directory. 
 
 #### Out-of-Order (O3CPU) Verification
 To prove that our Cache Miss Rate savings accurately map to physical pipeline IPC speedups, we use the detailed `DerivO3CPU` memory-parallelism model. After running `sbatch run_o3_verification.sh`, you can generate its independent graph by running:
