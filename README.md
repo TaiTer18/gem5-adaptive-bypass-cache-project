@@ -44,8 +44,6 @@ We analyze performance using the following metrics:
 
 # How To Run
 
-This repository evaluates a custom **Adaptive Bypass Cache Replacement Policy** inside the **gem5** architectural simulator using the NAS Parallel Benchmarks (NPB).
-
 This guide walks through exactly how to build the simulator, compile the benchmarks, and dispatch the evaluation pipelines on a SLURM high-performance cluster.
 
 ---
