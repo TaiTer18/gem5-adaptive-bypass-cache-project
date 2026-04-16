@@ -1,37 +1,65 @@
-This is the gem5 simulator.
+# Adaptive Bypass Cache Replacement in gem5
 
-The main website can be found at http://www.gem5.org
+This project implements and evaluates an adaptive cache bypassing policy for the last-level cache (LLC) in the gem5 architectural simulator.
 
-A good starting point is http://www.gem5.org/about, and for
-more information about building the simulator and getting started
-please see http://www.gem5.org/documentation and
-http://www.gem5.org/documentation/learning_gem5/introduction.
+Instead of always inserting data into the cache, the policy dynamically learns when it is beneficial to bypass insertion, reducing cache pollution and improving overall efficiency.
 
-To build gem5, you will need the following software: g++ or clang,
-Python (gem5 links in the Python interpreter), SCons, SWIG, zlib, m4,
-and lastly protobuf if you want trace capture and playback
-support. Please see http://www.gem5.org/documentation/general_docs/building
-for more details concerning the minimum versions of the aforementioned tools.
+---
 
-Once you have all dependencies resolved, type 'scons
-build/<ARCH>/gem5.opt' where ARCH is one of ARM, NULL, MIPS, POWER, SPARC,
-or X86. This will build an optimized version of the gem5 binary (gem5.opt)
-for the the specified architecture. See
-http://www.gem5.org/documentation/general_docs/building for more details and
-options.
+## Authors
 
-The basic source release includes these subdirectories:
-   - configs: example simulation configuration scripts
-   - ext: less-common external packages needed to build gem5
-   - src: source code of the gem5 simulator
-   - system: source for some optional system software for simulated systems
-   - tests: regression tests
-   - util: useful utility programs and files
+- Sara Magdalinski  
+- Nicholas Tait  
 
-To run full-system simulations, you will need compiled system firmware
-(console and PALcode for Alpha), kernel binaries and one or more disk
-images.
+Simon Fraser University  
+CMPT 450/750 — Spring 2026
 
-If you have questions, please send mail to gem5-users@gem5.org
+---
 
-Enjoy using gem5 and please share your modifications and extensions.
+## Overview
+
+Traditional cache replacement policies such as LRU can perform poorly in the LLC, where many cache lines are never reused. This leads to cache pollution and reduced effective cache capacity.
+
+This project explores an adaptive bypassing approach that:
+- Identifies low-value cache insertions
+- Dynamically adjusts bypass probability based on observed outcomes
+- Improves performance depending on workload characteristics
+
+We evaluate the policy using:
+- NAS Parallel Benchmarks (NPB)
+- Multiple cache configurations
+- Microbenchmarks and validation experiments
+
+---
+
+## Evaluation Metrics
+
+We analyze performance using the following metrics:
+- IPC (Instructions Per Cycle)
+- Miss Rate / MPKI
+- Bypass effectiveness
+- Memory traffic trends
+
+---
+
+## Getting Started
+
+Full setup, build, and execution instructions are provided in:
+
+[HOW_TO_RUN.md](./HOW_TO_RUN.md)
+
+This includes:
+- gem5 setup and build
+- Benchmark compilation
+- Running experiments (including SLURM)
+- Generating results and graphs
+
+---
+
+## Dependencies
+
+This project is built on top of the gem5 architectural simulator:
+
+- gem5: https://www.gem5.org/
+
+Please refer to the official gem5 documentation for installation details and system requirements.
